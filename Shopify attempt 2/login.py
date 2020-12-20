@@ -54,3 +54,12 @@ def admin_authenticate():
 	except Exception as e:
 		return 'Something went wrong', 400
 	return 'Done'
+
+
+
+@login_blueprint.route('/logout',methods = ['GET'])
+def logout():
+	if(session.get('id') != None):
+		session.clear()
+		return 'Logged Out', 200
+	return 'Not Logged in', 400

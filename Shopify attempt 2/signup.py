@@ -40,4 +40,3 @@ def signup():
 			print(e)
 			return 'Already exists', 401
 
-
