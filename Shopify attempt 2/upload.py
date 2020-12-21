@@ -1,15 +1,7 @@
 from flask import Flask, request, session, Blueprint
 import pyrebase
 import uuid
-config = {
-	"apiKey": "AIzaSyAhrOEolzpYMXYit0LWWhxmSC9zMieo6TM",
-    "authDomain": "shopifyproject-e8627.firebaseapp.com",
-    "databaseURL": "https://shopifyproject-e8627-default-rtdb.firebaseio.com",
-    "projectId": "shopifyproject-e8627",
-    "storageBucket": "shopifyproject-e8627.appspot.com",
-    "messagingSenderId": "771306858953",
-    "appId": "1:771306858953:web:010b5ce5392cf40d5b6018"
-}
+from constant import config
 
 
 upload_blueprint = Blueprint('upload_blueprint', __name__)

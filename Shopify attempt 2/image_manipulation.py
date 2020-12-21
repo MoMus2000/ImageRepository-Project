@@ -39,7 +39,7 @@ def image_grayscale():
 
 @image_manipulation_blueprint.route('/image/quality/<percent>', methods=['POST'])
 def image_quality(percent):
-	img = Image.open(request.files.get('image').stream).convert('L')
+	img = Image.open(request.files.get('image').stream)
 	img_io = BytesIO()
 	if (img.mode == "JPEG"):
 		img.save(img_io, format='JPEG', quality=int(percent))
