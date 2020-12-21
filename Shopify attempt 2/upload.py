@@ -35,7 +35,7 @@ def uploadSingleImage():
 		"Link": url
 	}
 	db.child(session['id']).push(data)
-	return 'Done', 201
+	return url, 201
 
 
 def uploadMultipleImages():
