@@ -2,8 +2,9 @@
 Image Repository with login and signup authentication to upload or bulk upload images to the cloud
 <br>
 Image Manipulation features: Resizing, Quality Control and Filters.
+<br>
+## Instructions
 ---
-##Instructions
 - run: pip install -r requirements.txt in your shell
 - clone git repository
 - run: app.py
