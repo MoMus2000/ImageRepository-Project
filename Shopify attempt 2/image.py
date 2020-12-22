@@ -2,20 +2,26 @@ from flask import Flask, session, request, Blueprint, jsonify
 import pyrebase
 from difflib import SequenceMatcher
 from constant import config
+
 image_blueprint = Blueprint('image_blueprint',__name__)
-
-
 firebase = pyrebase.initialize_app(config)
 
 
-"""
-Method : List all Images
-Request: GET
-Url: '/images'
-Use : Lists all images against a particular signed in user.
-"""
+
+
 @image_blueprint.route('/images',methods = ['GET'])
 def list_all_images():
+	"""
+	Method : List all Images
+	\n
+	Request: GET
+	\n
+	Url: '/images'
+	\n
+	Use : Lists all images against a particular signed in user.
+	\n
+	@returns : List of images
+	"""
 	image_links = []
 	if(session.get('id') == None):
 		return 'Need to login first', 400
@@ -26,17 +32,25 @@ def list_all_images():
 			image_links.append((val.val()['title'], val.val()['Text']))
 	return jsonify(image_links), 200
 
-
-"""
-Method : Search an Image
-Request : GET 
-Url : /images/<name>/<description>
-Use: Returns a list of images against a user, according to the name and description provided. 
-The provided images also have a matching ratio number, can be used by front end to show images based on 
-relevance
-"""
 @image_blueprint.route('/images/<name>/<description>', methods=['GET'])
 def search_an_image(name, description):
+	"""
+	Method : Search an Image
+	\n
+	Request : GET 
+	\n
+	@param name: name of the image
+	\n
+	@param description: description of the image
+	\n
+	Url : /images/*name/*description
+	\n
+	Use: Returns a list of images against a user, according to the name and description provided. 
+	The provided images also have a matching ratio number, can be used by front end to show images based on 
+	relevance
+	
+	@returns: List of matching images
+	"""
 	images = []
 	if(session.get('id')==None):
 		return 'Login Please', 400
