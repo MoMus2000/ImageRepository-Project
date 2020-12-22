@@ -6,16 +6,20 @@ login_blueprint = Blueprint('login_blueprint', __name__)
 
 
 
-"""
-Method: authenticate user (sign in)
-Request: POST
-Url: '/auth'
-Use : Returns a token which is stored along with user-type for flask session cookies
-"""
+
 
 
 @login_blueprint.route('/auth', methods = ['POST'])
 def authenticate():
+	"""
+	Method: authenticate user (sign in)
+	<br>
+	Request: POST
+	<br>
+	Url: '/auth'
+	<br>
+	Use : Returns a token which is stored along with user-type for flask session cookies
+	"""
 	try:
 		firebase = pyrebase.initialize_app(config)
 		auth = firebase.auth()
@@ -34,15 +38,17 @@ def authenticate():
 
 	return 'Arrived at login page'
 
-"""
-Method : Admin authentication
-Request: POST
-Url : '/admin'
-Use : Used to authenticate admin and set the user type as admin
-"""
-
 @login_blueprint.route('/admin', methods= ['POST'])
 def admin_authenticate():
+	"""
+	Method : Admin authentication
+	<br>
+	Request: POST
+	<br>
+	Url : '/admin'
+	<br>
+	Use : Used to authenticate admin and set the user type as admin
+	"""
 	try:
 		firebase = pyrebase.initialize_app(config)
 		auth = firebase.auth()
@@ -59,14 +65,15 @@ def admin_authenticate():
 		return 'Something went wrong', 400
 	return 'Done'
 
-"""
-Method : Logout user
-Url : '/logout'
-Use : To eliminate sesssion cookies, so that user is unable to use apis that require access token / sesssion id.
-"""
-
 @login_blueprint.route('/logout',methods = ['GET'])
 def logout():
+	"""
+	Method : Logout user
+	<br>
+	Url : '/logout'
+	<br>
+	Use : To eliminate sesssion cookies, so that user is unable to use apis that require access token / sesssion id.
+	"""
 	if(session.get('id') != None):
 		session.clear()
 		return 'Logged Out', 200
