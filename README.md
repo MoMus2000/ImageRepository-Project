@@ -10,3 +10,6 @@ Image Manipulation features: Resizing, Quality Control and Filters.
 - run: app.py
 - test api using postman
 ---
+
+## Contributor(s)
+- Mustafa Muhammad 
