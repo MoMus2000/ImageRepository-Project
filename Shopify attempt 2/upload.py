@@ -8,15 +8,18 @@ upload_blueprint = Blueprint('upload_blueprint', __name__)
 
 
 
-"""
-Method: Upload an image to firebase using user account
-Request: POST
-Use: Upload Image to Firebase Storage Bucket and at the same time set the link with the user in the database.
-"""
+
 
 #Add an image to storage and put the link into the data base according to the user
 @upload_blueprint.route("/upload", methods = ["POST"])
 def uploadSingleImage():
+	"""
+	Method: Upload an image to firebase using user account
+	<br>
+	Request: POST
+	<br>
+	Use: Upload Image to Firebase Storage Bucket and at the same time set the link with the user in the database.
+	"""
 	if(session.get('id') == None):
 		return 'Please Login First', 401
 	firebase = pyrebase.initialize_app(config)
