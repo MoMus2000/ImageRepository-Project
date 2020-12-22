@@ -3,7 +3,11 @@ from flask import Blueprint, Flask, session , request
 import pyrebase
 from constant import config
 
-
+"""
+Method : Sign up new user
+Request : POST
+Use : Create a user on firebase and set user in the database, along with setting a session id in flask.
+"""
 signup_blueprint = Blueprint('signup_blueprint', __name__)
 
 @signup_blueprint.route('/signup', methods = ['POST'])
