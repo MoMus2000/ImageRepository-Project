@@ -4,11 +4,19 @@ from constant import config
 
 login_blueprint = Blueprint('login_blueprint', __name__)
 
+
+
+"""
+Method: authenticate user (sign in)
+Request: POST
+Url: '/auth'
+Use : Returns a token which is stored along with user-type for flask session cookies
+"""
+
+
 @login_blueprint.route('/auth', methods = ['POST'])
 def authenticate():
 	try:
-		# print(request.data)
-		# print(request.json['username'])
 		firebase = pyrebase.initialize_app(config)
 		auth = firebase.auth()
 		user = auth.sign_in_with_email_and_password(request.json['username']+"@Mustafa.com", request.json['password'])
@@ -25,6 +33,13 @@ def authenticate():
 		return 'something went wrong', 400
 
 	return 'Arrived at login page'
+
+"""
+Method : Admin authentication
+Request: POST
+Url : '/admin'
+Use : Used to authenticate admin and set the user type as admin
+"""
 
 @login_blueprint.route('/admin', methods= ['POST'])
 def admin_authenticate():
@@ -44,7 +59,11 @@ def admin_authenticate():
 		return 'Something went wrong', 400
 	return 'Done'
 
-
+"""
+Method : Logout user
+Url : '/logout'
+Use : To eliminate sesssion cookies, so that user is unable to use apis that require access token / sesssion id.
+"""
 
 @login_blueprint.route('/logout',methods = ['GET'])
 def logout():

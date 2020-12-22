@@ -7,6 +7,13 @@ image_blueprint = Blueprint('image_blueprint',__name__)
 
 firebase = pyrebase.initialize_app(config)
 
+
+"""
+Method : List all Images
+Request: GET
+Url: '/images'
+Use : Lists all images against a particular signed in user.
+"""
 @image_blueprint.route('/images',methods = ['GET'])
 def list_all_images():
 	image_links = []
@@ -20,6 +27,14 @@ def list_all_images():
 	return jsonify(image_links), 200
 
 
+"""
+Method : Search an Image
+Request : GET 
+Url : /images/<name>/<description>
+Use: Returns a list of images against a user, according to the name and description provided. 
+The provided images also have a matching ratio number, can be used by front end to show images based on 
+relevance
+"""
 @image_blueprint.route('/images/<name>/<description>', methods=['GET'])
 def search_an_image(name, description):
 	images = []

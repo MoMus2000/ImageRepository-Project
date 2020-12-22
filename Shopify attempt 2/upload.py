@@ -7,6 +7,13 @@ from constant import config
 upload_blueprint = Blueprint('upload_blueprint', __name__)
 
 
+
+"""
+Method: Upload an image to firebase using user account
+Request: POST
+Use: Upload Image to Firebase Storage Bucket and at the same time set the link with the user in the database.
+"""
+
 #Add an image to storage and put the link into the data base according to the user
 @upload_blueprint.route("/upload", methods = ["POST"])
 def uploadSingleImage():
@@ -28,28 +35,3 @@ def uploadSingleImage():
 	}
 	db.child(session['id']).push(data)
 	return url, 201
-
-
-def uploadMultipleImages():
-	if(session.get['id'] == None):
-		return 'Please Login First', 401
-	return 'Done',201
-
-
-
-#When Iterating through Database 
-#We use the following code to add an image link
-# db = firebase.database()
-	# data = {
-		# 'LINK': 'putas@123.com'
-	# }
-	# db.child(session['id']).push(data)
-	# val = db.child(session['id']).get()
-	# for obj in val.each():
-		# print(obj.key())
-	# print(obj.val())
-#{'type': 'normal', 'user': 'Haramillo'}
-#{'LINK': '123@123.com'}.                   // OUTPUT THAT WE GET IN THE END
-#{'LINK': 'putas@123.com'}
-#{'LINK': 'putas@123.com'}
-#{'LINK': 'putas@123.com'}
