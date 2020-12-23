@@ -23,6 +23,10 @@ app.register_blueprint(upload_blueprint)
 app.register_blueprint(image_blueprint)
 app.register_blueprint(image_manipulation_blueprint)
 
+@app.errorhandler(404)
+def not_found(error):
+	return 'Refer to api docs or source code for the correct path',404
+
 if __name__ == "__main__":
 	app.run(debug = True)
 

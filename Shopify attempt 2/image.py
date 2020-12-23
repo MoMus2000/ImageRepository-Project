@@ -24,7 +24,7 @@ def list_all_images():
 	"""
 	image_links = []
 	if(session.get('id') == None):
-		return 'Need to login first', 400
+		return 'Need to login first', 403
 	db = firebase.database()
 	values = db.child(session['id']).get()
 	for val in values.each():
@@ -53,7 +53,7 @@ def search_an_image(name, description):
 	"""
 	images = []
 	if(session.get('id')==None):
-		return 'Login Please', 400
+		return 'Login Please', 403
 	db = firebase.database()
 	vals = db.child(session['id']).get()
 	for val in vals.each():
