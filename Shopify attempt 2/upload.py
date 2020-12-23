@@ -21,7 +21,7 @@ def uploadSingleImage():
 	Use: Upload Image to Firebase Storage Bucket and at the same time set the link with the user in the database.
 	"""
 	if(session.get('id') == None):
-		return 'Please Login First', 401
+		return 'Please Login First', 403
 	firebase = pyrebase.initialize_app(config)
 	storage = firebase.storage()
 	path = request.json['path']
