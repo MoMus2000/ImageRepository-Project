@@ -21,7 +21,10 @@ def image_resize(height,width):
 	<br>
 	USE : Upload Image, Resize to your liking and download directly
 	"""
-	img = Image.open(request.files.get('image').stream)
+	try:
+		img = Image.open(request.files.get('image').stream)
+	except IOError:
+		return 'Please provide a valid image', 401
 	img = img.resize((int(width),int(height)), Image.ANTIALIAS)
 	img_io = BytesIO()
 	if (img.mode == "JPEG"):
@@ -29,7 +32,10 @@ def image_resize(height,width):
 	elif( img.mode in ["RGBA", "P"]):
 		img = img.convert("RGB")
 		img.save(img_io, format='JPEG', quality=100)
+	else:
+		img.save(img_io, format='JPEG', quality=100)
 	img_io.seek(0)
+	# print("OKK")
 	return send_file(img_io, as_attachment=True,mimetype='image/jpeg',attachment_filename='logo.png'),201
 
 
@@ -43,7 +49,10 @@ def image_grayscale():
 	<br>
 	USE : Upload Image, grayscale and download directly
 	"""
-	img = Image.open(request.files.get('image').stream).convert('L')
+	try:
+		img = Image.open(request.files.get('image').stream).convert('L')
+	except IOError:
+		return 'Please provide a valid image', 401
 	img_io = BytesIO()
 	if (img.mode == "JPEG"):
 		img.save(img_io, format='JPEG', quality=100)
@@ -66,7 +75,10 @@ def image_quality(percent):
 	<br>
 	USE : Upload Image, change quality and download directly
 	"""
-	img = Image.open(request.files.get('image').stream)
+	try:
+		img = Image.open(request.files.get('image').stream)
+	except IOError:
+		return 'Please provide a valid image', 401
 	img_io = BytesIO()
 	if (img.mode == "JPEG"):
 		img.save(img_io, format='JPEG', quality=int(percent))
@@ -89,7 +101,10 @@ def image_contrast(value):
 	<br>
 	USE : Upload Image, change contrast and download directly
 	"""
-	img = Image.open(request.files.get('image').stream)
+	try:
+		img = Image.open(request.files.get('image').stream)
+	except IOError:
+		return 'Please provide a valid image', 401
 	contrast = ImageEnhance.Contrast(img)
 	img = contrast.enhance(int(value))
 	img_io = BytesIO()
