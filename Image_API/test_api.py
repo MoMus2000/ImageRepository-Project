@@ -139,6 +139,10 @@ def test_upload_image(p):
 
     assert res.status_code == 403
 
+    print("Success")
+
+    print("Testing picture upload API")
+
     res = p.post(f"/auth", json={
         'username':"Haramillo",
         'password':"password"
@@ -154,17 +158,20 @@ def test_upload_image(p):
 
     assert res.status_code == 201
 
+    print("Success")
 
 
 
-test_login(p)
-test_logout(p)
-test_list_images(p)
-test_signup(p)
-test_admin_login(p)
-test_upload_image(p)
+def run_tests():
+    test_login(p)
+    test_logout(p)
+    test_list_images(p)
+    test_signup(p)
+    test_admin_login(p)
+    test_upload_image(p)
 
-END = time.time()
+    END = time.time()
 
+    print(f"Test run time: {END-START:.2f} s")
 
-print(f"Test run time: {END-START:.2f} s")
+run_tests()
