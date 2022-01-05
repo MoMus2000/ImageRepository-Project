@@ -23,7 +23,8 @@ def image_resize(height,width):
 	"""
 	try:
 		img = Image.open(request.files.get('image').stream)
-	except IOError:
+	except IOError as p:
+		print(p)
 		return 'Please provide a valid image', 401
 	img = img.resize((int(width),int(height)), Image.ANTIALIAS)
 	img_io = BytesIO()
