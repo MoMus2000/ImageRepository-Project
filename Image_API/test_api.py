@@ -89,10 +89,80 @@ def test_list_images(p):
 
     print("Success")
 
+def test_signup(p):
+    p = p.test_client()
+
+    print("Testing signup while Logged in...")
+
+    p.post(f"/auth", json={
+        'username':"Haramillo",
+        'password':"password"
+        })
+
+    res = p.post("/signup", json={
+        'username':'Mustafa',
+        'password':'password'
+        })
+
+    assert res.status_code == 400
+
+    p.get("/logout")
+
+    print("Success")
+
+def test_admin_login(p):
+    p = p.test_client()
+
+    print("Testing admin access...")
+
+    res = p.post(f"/auth", json={
+        'username':"Mustafa",
+        'password':"password"
+        })
+
+    assert res.status_code == 201
+
+    print("Success")
+
+def test_upload_image(p):
+    p = p.test_client()
+    
+    print("Testing picture upload API without Login")
+
+    pic_path = "/Users/a./Desktop/shop/Image_API/test_image/1824d875874bee6.png"
+
+    res = p.post("/upload", json={
+        'path':pic_path,
+        'text':'Sample Text',
+        'name':'Name'
+        })
+
+    assert res.status_code == 403
+
+    res = p.post(f"/auth", json={
+        'username':"Haramillo",
+        'password':"password"
+        })
+
+    assert res.status_code == 201
+
+    res = p.post("/upload", json={
+        'path':pic_path,
+        'text':'Sample Text',
+        'name':'Name'
+        })
+
+    assert res.status_code == 201
+
+
+
 
 test_login(p)
 test_logout(p)
 test_list_images(p)
+test_signup(p)
+test_admin_login(p)
+test_upload_image(p)
 
 END = time.time()
 
